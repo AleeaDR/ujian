@@ -4,8 +4,10 @@ import MovieList from './pages/movieList'
 import Bebas from './pages/admin/manageMovie'
 import MovieDetail from './pages/movieDetail'
 import Register from './pages/register'
+import SeatRes from './pages/seatReservation'
+import PageNotFound from './pages/PageNotFound'
 
-import { Route } from 'react-router-dom'
+import { Route ,Switch } from 'react-router-dom'
 
 import './App.css';
 import Login from './pages/login';
@@ -28,17 +30,30 @@ class App extends React.Component {
   }
 
   render(){
+    if(this.props.user === '' && localStorage.getItem('terserah') !== null){
+      return (<p> Loading ...  </p>)
+    }
+    // alert('Ini App.js')
     return (
       <div>
         <Header/>
-        <Route exact path='/' component= {MovieList} />
-        <Route path='/manage' component={Bebas} />
-        <Route path='/movie-detail' component={MovieDetail} />
-        <Route path='/register' component={Register} />
-        <Route path='/login' component={Login} />
+        <Switch>
+          <Route exact path='/' component= {MovieList} />
+          <Route path='/manage' component={Bebas} />
+          <Route path='/movie-detail' component={MovieDetail} />
+          <Route path='/register' component={Register} />
+          <Route path='/login' component={Login} />
+          <Route path='/order-seat' component={SeatRes} />
+          <Route path='*' component={PageNotFound} />
+        </Switch>
       </div>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return{
+    user : state.user.username
+  }
+}
 
-export default connect(null ,{OnRegisterSuccess} )(App);
+export default connect(mapStateToProps ,{OnRegisterSuccess} )(App);

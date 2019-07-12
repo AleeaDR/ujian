@@ -19,7 +19,7 @@ class ManageMovie extends React.Component{
     componentDidMount(){
         Axios.get('http://localhost:2000/movies')
         .then((res) => {
-            this.setState({data : res.data})
+            this.setState({data : res.data}) 
         })
         .catch((err) => {
             console.log(err)
@@ -27,7 +27,7 @@ class ManageMovie extends React.Component{
     }
     //functions
 
-    RenderSinopsis = (text) => {
+    RenderSinopsis = (text) => { 
         var arr = text.split(' ')
         var newArr = []
         for(var i = 0 ; i < 5 ; i ++){
@@ -90,7 +90,7 @@ class ManageMovie extends React.Component{
         
         
         // Get Semua Data Dari Input
-        // Kirim Ke JSON
+        // Kirim Ke JSON 
 
     }
 

@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom'
 class MovieDetail extends React.Component{
     state = { data : null , login : null }
     componentDidMount(){
-        var id = this.props.location.search.split('=')[1]
+        var id = this.props.location.search.split('=')[1] 
         Axios.get('http://localhost:2000/movies/' + id)
         .then((res) => {
             this.setState({data : res.data})
@@ -22,12 +22,19 @@ class MovieDetail extends React.Component{
     onBuyTicketClick = () => {
         if(this.props.user.id === 0){
             this.setState({login : false})
+        }else{
+            this.setState({login : true})
         }
     }
     render(){
         if(this.state.login === false){
             return(
                 <Redirect to='/login' />
+            )
+        }
+        if(this.state.login === true){
+            return(
+                <Redirect to={{ pathname : '/order-seat' , state: this.state.data}} />
             )
         }
         if(this.state.data === null){
